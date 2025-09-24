@@ -22,3 +22,18 @@ app.get("/details/:id", (req, res) => {
   if (!car) return res.status(404).json({ message: "Car not found" });
   res.json(car);
 });
+// Exemplu simplificat Admin
+app.put("/admin/edit/:id", (req, res) => {
+  const role = req.query.role || "User"; // în practică: JWT
+  if (role !== "Admin") return res.status(403).json({ message: "Forbidden" });
+
+  const car = cars.find(c => c.id === parseInt(req.params.id));
+  if (!car) return res.status(404).json({ message: "Car not found" });
+
+  const { name, pricePerDay } = req.body;
+  if (name) car.name = name;
+  if (pricePerDay) car.pricePerDay = pricePerDay;
+
+  res.json({ message: "Car updated", car });
+});
+
