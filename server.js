@@ -7,10 +7,17 @@ const cars = [
   { id: 2, name: "Honda Civic", pricePerDay: 35 }
 ];
 
-// Endpoint corect
+
 app.get("/list", (req, res) => {
   res.json(cars);
 });
 
-// Pornire server
+
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+
+
+app.get("/details/:id", (req, res) => {
+  const car = cars.find(c => c.id === parseInt(req.params.id));
+  if (!car) return res.status(404).json({ message: "Car not found" });
+  res.json(car);
+});
