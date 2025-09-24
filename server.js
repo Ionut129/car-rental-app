@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const PORT = 3000;
-
+const carRoutes = require("./routes/cars");
+app.use("/cars", carRoutes);
 const cars = [
   { id: 1, name: "Toyota Corolla", pricePerDay: 30 },
   { id: 2, name: "Honda Civic", pricePerDay: 35 }
